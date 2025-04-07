@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Container, TextInput, Button, Stack, Text } from '@mantine/core';
+import { useWeather } from './hooks/useWeather';
+import { WeatherCard } from './components/WeatherCard/WeatherCard';
 
 function App() {
+  const [city, setCity] = useState('');
+  const { weather, error, fetchWeather } = useWeather();
+
+  const handleSubmit = () => {
+    if (city.trim()) fetchWeather(city);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container size="xs" py="xl">
+      <Stack gap="md">
+        <TextInput
+          placeholder="Enter city"
+          value={city}
+          onChange={(e) => setCity(e.currentTarget.value)}
+        />
+        <Button onClick={handleSubmit}>Get Weather</Button>
+        {error && <Text color="red">{error}</Text>}
+        {weather && <WeatherCard data={weather} />}
+      </Stack>
+    </Container>
   );
 }
 
