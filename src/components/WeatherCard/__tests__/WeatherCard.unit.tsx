@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import { WeatherCard } from '../WeatherCard'; // Переконайтеся, що шлях правильний
+import { WeatherCard } from '../WeatherCard'; 
 import '@testing-library/jest-dom';
 import { MantineProvider } from '@mantine/core';
 
-// Тест для компонента WeatherCard
+
 describe('WeatherCard', () => {
   const mockData = {
     city: "Kyiv", 
